@@ -1,1 +1,6 @@
-{}
+{
+  "@@locale": "en",
+
+  "loginView": "Login page",
+  "login": "Login"
+}

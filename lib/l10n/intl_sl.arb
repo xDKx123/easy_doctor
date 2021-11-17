@@ -1,1 +1,7 @@
-{}
+{
+  "@@locale": "sl",
+
+
+  "loginView": "Prijavna stran",
+  "login": "Prijava"
+}
