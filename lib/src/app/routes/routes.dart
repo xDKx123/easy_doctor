@@ -71,11 +71,10 @@ class GuardedRoute extends PageRouteBuilder {
                 Animation<double> secondaryAnimation) {
               return BlocBuilder<AuthenticationBloc, AuthenticationState>(
                   builder: (BuildContext context, AuthenticationState state) {
-                if (state.status == AuthenticationStatus.authenticated ||
-                    state.status == AuthenticationStatus.impersonating) {
+                if (state is AuthenticationAuthenticated ||
+                    state is AuthenticationImpersonating) {
                   return guardedPage;
-                } else if (state.status ==
-                    AuthenticationStatus.unauthenticated) {
+                } else if (state is AuthenticationUnauthenticated) {
                   WidgetsBinding.instance!.addPostFrameCallback((_) {});
                 }
 

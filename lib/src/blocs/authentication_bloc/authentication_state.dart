@@ -1,9 +1,8 @@
 part of 'authentication_bloc.dart';
 
-enum AuthenticationMethod {
-  STORED_TOKEN,
-  LOGIN_SUBMISSION,
-  IMPERSONATING,
+/*enum AuthenticationMethod {
+  token,
+  login_submission,
 }
 
 enum AuthenticationStatus {
@@ -27,6 +26,34 @@ class AuthenticationState extends Equatable {
   @override
   // TODO: implement props
   List<Object?> get props => <Object?>[status];
+}*/
+
+abstract class AuthenticationState extends Equatable {
+  const AuthenticationState();
+}
+
+class AuthenticationUnknown extends AuthenticationState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
+}
+
+class AuthenticationAuthenticated extends AuthenticationState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
+}
+
+class AuthenticationUnauthenticated extends AuthenticationState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
+}
+
+class AuthenticationImpersonating extends AuthenticationState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
 }
 
 class Permissions {
