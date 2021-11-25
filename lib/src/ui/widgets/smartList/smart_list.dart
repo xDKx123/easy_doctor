@@ -1,3 +1,4 @@
+/*
 import 'package:easy_doctor/src/app/app_drawers/app_drawer.dart';
 import 'package:easy_doctor/src/app/utils/device_screen_type.dart';
 import 'package:easy_doctor/src/blocs/smart_list_bloc/smart_list_bloc.dart';
@@ -5,9 +6,12 @@ import 'package:easy_doctor/src/ui/widgets/helpers/ui_helpers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
 import 'package:implicitly_animated_reorderable_list/transitions.dart';
+
+import 'package:implicitly_animated_list/implicitly_animated_list.dart';
 
 typedef ItemBuilder<T> = Widget Function(T data);
 
@@ -30,7 +34,7 @@ class SmartList<T> extends StatelessWidget {
     this.errorMessage,
 
     // Persistent First Item (ex. Item Navigation Bar)
-    required this.persistentFirstItem,
+    //required this.persistentFirstItem,
   }) : super(key: key);
 
   /// Scroll Controller
@@ -53,7 +57,7 @@ class SmartList<T> extends StatelessWidget {
   final String? errorMessage;
 
   /// Persistent First Item (example: Item Navigation Bar)
-  final Widget persistentFirstItem;
+  //final Widget persistentFirstItem;
 
   double getListHeaderExtent(SizingInformation sizing) {
     if (sizing.deviceScreenType == DeviceScreenType.desktop) {
@@ -67,7 +71,7 @@ class SmartList<T> extends StatelessWidget {
     return 80;
   }
 
-  /* Widget _buildUtilityBottomSheet(
+ Widget _buildUtilityBottomSheet(
       {required BuildContext context,
       required SizingInformation sizingInformation}) {
     return SingleChildScrollView(
@@ -92,7 +96,8 @@ class SmartList<T> extends StatelessWidget {
         ],
       ),
     ));
-  }*/
+  }
+
 
   Widget _buildMainContent({
     required BuildContext context,
@@ -109,7 +114,7 @@ class SmartList<T> extends StatelessWidget {
     }
 
     /// [noItemsMessage] & [errorMessage]
-    if (items == null || items.isEmpty) {
+    if (items.isEmpty) {
       return SliverFillRemaining(
         hasScrollBody: true,
         child: Center(
@@ -127,10 +132,29 @@ class SmartList<T> extends StatelessWidget {
       );
     }
 
-    /// List Of Items
-    return SliverImplicitlyAnimatedList<T>(
-      items: items,
-      areItemsTheSame: (T a, T b) => a == b,
+    return SliverToBoxAdapter(
+        child: ImplicitlyAnimatedList(
+      itemData: items,
+      itemBuilder: (context, data) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            itemBuilder(data as T),
+SizeFadeTransition(
+              sizeFraction: 0.7,
+              curve: Curves.easeInOut,
+              animation: animation,
+              child: itemBuilder(item),
+            ),
+
+          ],
+        );
+      },
+    )
+
+        /// List Of Items
+
+areItemsTheSame: (T a, T b) => a == b,
       itemBuilder: (BuildContext context, Animation<double> animation, T item,
           int index) {
         return Column(
@@ -145,7 +169,8 @@ class SmartList<T> extends StatelessWidget {
           ],
         );
       },
-    );
+
+        );
   }
 
   @override
@@ -203,7 +228,7 @@ class SmartList<T> extends StatelessWidget {
               children: <Widget>[
                 RefreshIndicator(
                   onRefresh: () async {
-                    onRefresh();
+                    onRefresh;
                   },
                   child: CustomScrollView(
                     shrinkWrap: false,
@@ -212,7 +237,8 @@ class SmartList<T> extends StatelessWidget {
                     slivers: <Widget>[
                       /// List Header
                       /// (Search Bar, Create & Refresh Button, Filter Row)
-/*                      SliverPersistentHeader(
+                     */
+/* SliverPersistentHeader(
                         pinned: true,
                         delegate: SmartListHeader(
                           minExtent: sizingInformation.deviceScreenType ==
@@ -280,22 +306,25 @@ class SmartList<T> extends StatelessWidget {
                             },
                           ),
                         ),
-                      ),*/
+                      ), */ /*
+
+
 
                       /// Widgets Above The List
                       SliverToBoxAdapter(
                         child: Column(
                           children: <Widget>[
-                            createForm ?? Container(),
-                            persistentFirstItem ?? Container()
+                            createForm,
+                            //persistentFirstItem ?? Container()
                           ],
                         ),
                       ),
 
                       /// Spacer before first item
-                      SliverToBoxAdapter(
+                      const SliverToBoxAdapter(
                         child: Visibility(
-                          visible: persistentFirstItem == null,
+                          visible: true,
+                          //visible: persistentFirstItem == null,
                           child: verticalSpaceSmall,
                         ),
                       ),
@@ -340,3 +369,4 @@ class SmartList<T> extends StatelessWidget {
     );
   }
 }
+*/

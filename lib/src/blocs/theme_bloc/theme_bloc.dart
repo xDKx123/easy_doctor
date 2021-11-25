@@ -12,15 +12,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
             themeData: appThemeData[AppThemes.dark] ?? ThemeData.dark())) {
     on<ThemeEvent>((event, emit) {
       // TODO: implement event handler
+      if (event is LoadTheme) {}
     });
-  }
-
-  @override
-  void onEvent(ThemeEvent event) {
-    // TODO: implement onEvent
-    super.onEvent(event); //must call super;
-
-    if (event is ThemeChanged) {
-    } else if (event is LoadTheme) {}
   }
 }

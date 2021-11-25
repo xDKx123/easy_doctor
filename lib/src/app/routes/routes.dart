@@ -1,8 +1,8 @@
 import 'package:easy_doctor/src/app/routes/route_names.dart';
 import 'package:easy_doctor/src/blocs/authentication_bloc/authentication_bloc.dart';
-import 'package:easy_doctor/src/views/intro/intro_view.dart';
-import 'package:easy_doctor/src/views/login/login_view.dart';
-import 'package:easy_doctor/src/views/splash/splash_view.dart';
+import 'package:easy_doctor/src/ui/views/intro/intro_view.dart';
+import 'package:easy_doctor/src/ui/views/login/login_view.dart';
+import 'package:easy_doctor/src/ui/views/splash/splash_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

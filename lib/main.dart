@@ -1,5 +1,6 @@
 import 'package:easy_doctor/src/app.dart';
 import 'package:easy_doctor/src/graphQl/graphql.dart';
+import 'package:easy_doctor/src/repositories/posts_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -8,6 +9,6 @@ void main() async {
       GraphQl.getTestingEnvironmentClient();
 
   runApp(App(
-    client: client,
+    postsRepository: PostsRepository(),
   ));
 }
