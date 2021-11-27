@@ -1,5 +1,8 @@
 import 'package:easy_doctor/src/models/post.dart';
+import 'package:easy_doctor/src/ui/widgets/comments/comments_view.dart';
+import 'package:easy_doctor/src/ui/widgets/helpers/ui_helpers.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class PostsListItem extends StatelessWidget {
   const PostsListItem({Key? key, required this.post}) : super(key: key);
@@ -8,37 +11,61 @@ class PostsListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    print('Create post object');
-    return Text(post.text);
-    /*return Stack(
-      children: [
+    Widget _buildImages() {
+      if (post.uploads.isEmpty) {
+        return Container();
+      }
+
+      //TODO: implement images view;
+      return Container();
+    }
+
+    Widget _buildBottom() {
+      String commentsLabel = 'Comments (' + post.allComments.toString() + ')';
+      return Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              /*TextButton(
+              onPressed: () {},
+              child: Text('Liked'),
+            ),*/
+              TextButton(
+                  onPressed: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CommentsView(post: post)),
+                    );
+                  },
+                  child: Text(commentsLabel)),
+/*            Text('test'),
+            Text('test'),
+            Text('test'),
+            Text('test'),*/
+            ],
+          ),
+        ],
+      );
+    }
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        verticalSpaceSmall,
+        Text(
+          post.title,
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        verticalSpaceMedium,
         Text(post.text),
+        verticalSpaceTiny,
+        _buildImages(),
         verticalSpaceSmall,
-      ],
-    );*/
-  }
-}
-/*
-class PostsListItem extends StatefulWidget {
-  const PostsListItem({Key? key, required this.post}) : super(key: key);
-
-  final PostModel post;
-
-  @override
-  State<StatefulWidget> createState() => _PostsListItem();
-}
-
-class _PostsListItem extends State<PostsListItem> {
-  @override
-  Widget build(BuildContext context) {
-    //return Text(widget.post.text);
-    return Stack(
-      children: [
-        Text(widget.post.text),
-        verticalSpaceSmall,
+        _buildBottom(),
+        //verticalSpaceSmall,
       ],
     );
   }
 }
-*/

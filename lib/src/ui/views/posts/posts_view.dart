@@ -28,7 +28,7 @@ class PostsView extends StatelessWidget {
               return PostsList(
                 posts: state is PostsLoaded ? state.posts : [],
                 isLoading: state is PostsLoading,
-                errorMessage: state is PostsNotLoaded ? '' : null,
+                errorMessage: state is PostsNotLoaded ? state.message : null,
               );
             },
           ),

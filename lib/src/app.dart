@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'app/routes/route_names.dart';
 import 'blocs/smart_list_bloc/smart_list_bloc.dart';
 
 class App extends StatelessWidget {
@@ -70,22 +69,43 @@ class AppView extends StatefulWidget {
 }
 
 class _AppViewState extends State<AppView> {
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+
+  NavigatorState get _navigator => _navigatorKey.currentState!;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Easy doctor',
-      onGenerateRoute: (setting) => generateRoute(setting),
-      initialRoute: introRoute,
+      onGenerateRoute: generateRoute,
+      //initialRoute: introRoute,
+      home: HomePage(),
+      navigatorKey: _navigatorKey,
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
+      //home: LoginView(),
       supportedLocales: S.delegate.supportedLocales,
-      builder: (context, child) {
-        //return const LoginView();
-        return const PostsView();
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return BlocConsumer<AuthenticationBloc, AuthenticationState>(
+      listener: (context, state) {
+        //_navigator.pushNamed(postsRoute);
+        //Navigator.of(context).pushReplacementNamed(postsRoute);
+      },
+      builder: (context, state) {
+        return PostsView();
       },
     );
   }

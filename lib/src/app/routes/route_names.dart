@@ -5,3 +5,4 @@ const String resetPasswordRoute = '/password/reset';
 const String settingsRoute = '/settings';
 const String profileRoute = '/profile';
 const String introRoute = '/intro';
+const String postsRoute = '/posts';

@@ -1,6 +1,7 @@
 import 'package:easy_doctor/src/blocs/posts_bloc/posts_bloc.dart';
 import 'package:easy_doctor/src/models/post.dart';
 import 'package:easy_doctor/src/ui/views/posts/posts_list_item.dart';
+import 'package:easy_doctor/src/ui/widgets/app_drawer/app_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,6 +28,8 @@ class _PostsListState extends State<PostsList> {
   final GlobalKey<SliverAnimatedListState> _listKey =
       GlobalKey<SliverAnimatedListState>();
 
+  final GlobalKey<ScaffoldState> drawerKey = new GlobalKey<ScaffoldState>();
+
   Widget buildMainContext() {
     print(widget.posts.length);
     if (widget.isLoading) {
@@ -40,11 +43,12 @@ class _PostsListState extends State<PostsList> {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) {
+          //return PostsListItem(post: widget.posts.elementAt(index));
           return Card(
             margin: const EdgeInsets.all(15),
             child: Container(
               color: Colors.blue[100 * (index % 9 + 1)],
-              height: 80,
+              //height: 80,
               alignment: Alignment.center,
               child: PostsListItem(post: widget.posts[index]),
             ),
@@ -58,6 +62,7 @@ class _PostsListState extends State<PostsList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: drawerKey,
       body: RefreshIndicator(
         onRefresh: () async {
           BlocProvider.of<PostsBloc>(context).add(LoadPosts());
@@ -71,7 +76,9 @@ class _PostsListState extends State<PostsList> {
               ),
               automaticallyImplyLeading: false,
               leading: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  drawerKey.currentState!.openDrawer();
+                },
                 icon: const Icon(Icons.menu),
               ),
             ),
@@ -87,6 +94,7 @@ class _PostsListState extends State<PostsList> {
         icon: const Icon(Icons.add),
         //backgroundColor: Colors.pink,
       ),
+      drawer: AppDrawer(),
     );
     /*return Scaffold(
       appBar: AppBar(),

@@ -2,6 +2,8 @@ import 'package:easy_doctor/src/app/routes/route_names.dart';
 import 'package:easy_doctor/src/blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:easy_doctor/src/ui/views/intro/intro_view.dart';
 import 'package:easy_doctor/src/ui/views/login/login_view.dart';
+import 'package:easy_doctor/src/ui/views/posts/posts_view.dart';
+import 'package:easy_doctor/src/ui/views/settings/settings_view.dart';
 import 'package:easy_doctor/src/ui/views/splash/splash_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,6 +35,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getGuardedPageRoute(const LoginView(), settings);
     case introRoute:
       return _getGuardedPageRoute(const IntroView(), settings);
+    case settingsRoute:
+      return _getGuardedPageRoute(const SettingsView(), settings);
+    case postsRoute:
+      return _getGuardedPageRoute(const PostsView(), settings);
     default:
       return _getGuardedPageRoute(const LoginView(), settings);
   }
@@ -71,12 +77,13 @@ class GuardedRoute extends PageRouteBuilder {
                 Animation<double> secondaryAnimation) {
               return BlocBuilder<AuthenticationBloc, AuthenticationState>(
                   builder: (BuildContext context, AuthenticationState state) {
-                if (state is AuthenticationAuthenticated ||
+                return guardedPage;
+/*                if (state is AuthenticationAuthenticated ||
                     state is AuthenticationImpersonating) {
                   return guardedPage;
                 } else if (state is AuthenticationUnauthenticated) {
                   WidgetsBinding.instance!.addPostFrameCallback((_) {});
-                }
+                }*/
 
                 return placeholderPage;
               });
