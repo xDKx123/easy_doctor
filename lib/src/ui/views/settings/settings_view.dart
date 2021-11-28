@@ -1,3 +1,4 @@
+import 'package:easy_doctor/src/ui/views/settings/settings_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -7,12 +8,6 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return CustomScrollView(
-      slivers: [
-        SliverAppBar(
-          title: Text('Settings'),
-        )
-      ],
-    );
+    return SettingsList();
   }
 }

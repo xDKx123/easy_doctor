@@ -1,5 +1,6 @@
 import 'package:easy_doctor/src/models/id.dart';
 import 'package:easy_doctor/src/models/timestamps.dart';
+import 'package:easy_doctor/src/models/upload.dart';
 import 'package:easy_doctor/src/models/user.dart';
 import 'package:equatable/equatable.dart';
 
@@ -9,12 +10,14 @@ class CommentModel extends Equatable {
       required this.userId,
       required this.text,
       required this.liked,
+      required this.uploads,
       required this.timestamps});
 
   final CommentID id;
   final UserID userId;
   final String text;
   final List<UserID> liked;
+  final List<UploadModel> uploads;
   final TimestampsModel timestamps;
 
   CommentModel copyWith({
@@ -22,6 +25,7 @@ class CommentModel extends Equatable {
     final UserID? userId,
     final String? text,
     final List<UserID>? liked,
+    final List<UploadModel>? uploads,
     final TimestampsModel? timestamps,
   }) {
     return CommentModel(
@@ -29,12 +33,13 @@ class CommentModel extends Equatable {
         userId: userId ?? this.userId,
         text: text ?? this.text,
         liked: liked ?? this.liked,
+        uploads: uploads ?? this.uploads,
         timestamps: timestamps ?? this.timestamps);
   }
 
   @override
-  // TODO: implement props
-  List<Object?> get props => <Object?>[id, userId, text, liked, timestamps];
+  List<Object?> get props =>
+      <Object?>[id, userId, text, liked, uploads, timestamps];
 }
 
 class CommentID extends ID {

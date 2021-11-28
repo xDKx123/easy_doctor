@@ -1,5 +1,6 @@
 import 'package:easy_doctor/src/mock/timestamps_mock.dart';
 import 'package:easy_doctor/src/models/post.dart';
+import 'package:easy_doctor/src/models/upload.dart';
 import 'package:easy_doctor/src/models/user.dart';
 
 import 'comments_mock.dart';
@@ -11,8 +12,8 @@ List<PostModel> postsMock = <PostModel>[
       title: 'Ttile 1',
       text: "test 1",
       comments: commentsMock,
-      liked: [],
-      uploads: [],
+      liked: <UserID>[],
+      uploads: <UploadModel>[],
       allComments: 5,
       allLikes: 5,
       timestamps: timestampsModelMock),
@@ -22,8 +23,8 @@ List<PostModel> postsMock = <PostModel>[
       title: 'Title 2',
       text: "test 2",
       comments: commentsMock,
-      liked: [],
-      uploads: [],
+      liked: <UserID>[],
+      uploads: <UploadModel>[],
       allComments: 5,
       allLikes: 5,
       timestamps: timestampsModelMock)

@@ -31,7 +31,6 @@ class _PostsListState extends State<PostsList> {
   final GlobalKey<ScaffoldState> drawerKey = new GlobalKey<ScaffoldState>();
 
   Widget buildMainContext() {
-    print(widget.posts.length);
     if (widget.isLoading) {
       return const SliverFillRemaining(
         child: Center(
@@ -94,7 +93,7 @@ class _PostsListState extends State<PostsList> {
         icon: const Icon(Icons.add),
         //backgroundColor: Colors.pink,
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
     );
     /*return Scaffold(
       appBar: AppBar(),

@@ -16,24 +16,34 @@ class LocalStorageAdapter {
     _storage.setItem(key, data);
   }
 
-  Future<String> getData(String key) async {
+  Future<String?> getData(String key) async {
     await _storage.ready;
 
-    return _storage.getItem(key).toString();
+    return _storage.getItem(key)?.toString();
   }
 }
 
 class LocalStorageRepository {
   LocalStorageRepository();
 
-  final LocalStorageAdapter localStorageAdapter = LocalStorageAdapter();
+  final LocalStorageAdapter _localStorageAdapter = LocalStorageAdapter();
 
   ///set & get REFRESH TOKEN
-  void setRefreshToken(String jwt) {
-    localStorageAdapter.setData(LocalStorageKeys.refreshToken, jwt);
+  Future<void> setRefreshToken(String jwt) async {
+    await _localStorageAdapter.setData(LocalStorageKeys.refreshToken, jwt);
   }
 
-  Future<String> getRefreshToken() async {
-    return await localStorageAdapter.getData(LocalStorageKeys.refreshToken);
+  Future<String?> getRefreshToken() async {
+    return await _localStorageAdapter.getData(LocalStorageKeys.refreshToken);
+  }
+
+  //set & get LANGUAGE
+  Future<void> setLanguageCode(String languageCode) async {
+    await _localStorageAdapter.setData(
+        LocalStorageKeys.languageCode, languageCode);
+  }
+
+  Future<String?> getLanguageCode() async {
+    return await _localStorageAdapter.getData(LocalStorageKeys.languageCode);
   }
 }

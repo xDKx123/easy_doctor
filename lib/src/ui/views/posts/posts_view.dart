@@ -14,24 +14,25 @@ class PostsView extends StatelessWidget {
     }
 
     return WillPopScope(
-        onWillPop: () async {
-          return true;
+      onWillPop: () async {
+        return true;
+      },
+      child: BlocListener<PostsBloc, PostsState>(
+        listener: (BuildContext context, PostsState state) {
+          if (state is PostsLoading) {
+            //BlocProvider.of<PostsBloc>(context).add(const LoadPosts());
+          }
         },
-        child: BlocListener<PostsBloc, PostsState>(
-          listener: (BuildContext context, PostsState state) {
-            if (state is PostsLoading) {
-              //BlocProvider.of<PostsBloc>(context).add(const LoadPosts());
-            }
+        child: BlocBuilder<PostsBloc, PostsState>(
+          builder: (BuildContext context, PostsState state) {
+            return PostsList(
+              posts: state is PostsLoaded ? state.posts : [],
+              isLoading: state is PostsLoading,
+              errorMessage: state is PostsNotLoaded ? state.message : null,
+            );
           },
-          child: BlocBuilder<PostsBloc, PostsState>(
-            builder: (BuildContext context, PostsState state) {
-              return PostsList(
-                posts: state is PostsLoaded ? state.posts : [],
-                isLoading: state is PostsLoading,
-                errorMessage: state is PostsNotLoaded ? state.message : null,
-              );
-            },
-          ),
-        ));
+        ),
+      ),
+    );
   }
 }

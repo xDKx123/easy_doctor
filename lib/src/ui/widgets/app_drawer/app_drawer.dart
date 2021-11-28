@@ -12,15 +12,13 @@ class AppDrawer extends StatelessWidget {
       ),
       DrawerItem(
           onPressed: () {
-            Navigator.of(context).pushNamed(postsRoute);
+            Navigator.of(context).popAndPushNamed(postsRoute);
           },
           icon: Icons.add,
           title: 'Posts'),
       DrawerItem(
           onPressed: () {
-            Navigator.of(context).pushNamed(settingsRoute);
-            /*Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SettingsView()));*/
+            Navigator.of(context).popAndPushNamed(settingsRoute);
           },
           icon: Icons.settings,
           title: 'Settings'),

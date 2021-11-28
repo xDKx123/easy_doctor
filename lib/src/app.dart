@@ -1,10 +1,17 @@
 import 'package:easy_doctor/generated/l10n.dart';
 import 'package:easy_doctor/src/app/routes/routes.dart';
 import 'package:easy_doctor/src/blocs/authentication_bloc/authentication_bloc.dart';
+import 'package:easy_doctor/src/blocs/comments_bloc/comments_bloc.dart';
+import 'package:easy_doctor/src/blocs/connectivity_bloc/connectivity_bloc.dart';
+import 'package:easy_doctor/src/blocs/language_bloc/language_bloc.dart';
 import 'package:easy_doctor/src/blocs/posts_bloc/posts_bloc.dart';
+import 'package:easy_doctor/src/blocs/profile_bloc/profile_bloc.dart';
 import 'package:easy_doctor/src/blocs/theme_bloc/theme_bloc.dart';
+import 'package:easy_doctor/src/repositories/comments_repository.dart';
 import 'package:easy_doctor/src/repositories/posts_repository.dart';
+import 'package:easy_doctor/src/repositories/profile_repository.dart';
 import 'package:easy_doctor/src/ui/views/posts/posts_view.dart';
+import 'package:easy_doctor/src/utils/localStorage/local_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,9 +23,15 @@ class App extends StatelessWidget {
   const App({
     Key? key,
     required this.postsRepository,
+    required this.commentsRepository,
+    required this.profileRepository,
+    required this.localStorageRepository,
   }) : super(key: key);
 
   final PostsRepository postsRepository;
+  final CommentsRepository commentsRepository;
+  final ProfileRepository profileRepository;
+  final LocalStorageRepository localStorageRepository;
 
   //final ValueNotifier<GraphQLClient> client;
   //HttpLink httpLink = HttpLink("http://10.0.2.2:4000/");
@@ -31,14 +44,31 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: <BlocProvider<dynamic>>[
         BlocProvider<AuthenticationBloc>(
-          create: (_) => AuthenticationBloc(),
+          create: (context) => AuthenticationBloc(),
         ),
         BlocProvider<ThemeBloc>(
-          create: (_) => ThemeBloc()..add(LoadTheme()),
+          create: (context) => ThemeBloc()..add(const LoadTheme()),
         ),
         BlocProvider<SmartListBloc>(create: (_) => SmartListBloc()),
         BlocProvider<PostsBloc>(
-          create: (_) => PostsBloc(postsRepository: postsRepository),
+          create: (context) => PostsBloc(postsRepository: postsRepository),
+        ),
+        BlocProvider<CommentsBloc>(
+          create: (context) =>
+              CommentsBloc(commentsRepository: commentsRepository),
+        ),
+        BlocProvider<ConnectivityBloc>(
+          create: (context) =>
+              ConnectivityBloc()..add(const ConnectivityEmit()),
+        ),
+        BlocProvider<ProfileBloc>(
+          create: (context) => ProfileBloc(profileRepository: profileRepository)
+            ..add(LoadProfile()),
+        ),
+        BlocProvider<LanguageBloc>(
+          create: (context) =>
+              LanguageBloc(localStorageRepository: localStorageRepository)
+                ..add(const LoadLanguage()),
         )
       ],
       child: const AppView(),
@@ -69,26 +99,34 @@ class AppView extends StatefulWidget {
 }
 
 class _AppViewState extends State<AppView> {
-  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+  //final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
 
-  NavigatorState get _navigator => _navigatorKey.currentState!;
+  //NavigatorState get _navigator => _navigatorKey.currentState!;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Easy doctor',
-      onGenerateRoute: generateRoute,
-      //initialRoute: introRoute,
-      home: HomePage(),
-      navigatorKey: _navigatorKey,
-      localizationsDelegates: const [
-        S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      //home: LoginView(),
-      supportedLocales: S.delegate.supportedLocales,
+    return BlocBuilder<ThemeBloc, ThemeState>(
+      builder: (context, state) {
+        return BlocBuilder<LanguageBloc, LanguageState>(
+          builder: (context, state) {
+            return MaterialApp(
+              title: 'Easy doctor',
+              onGenerateRoute: generateRoute,
+              //initialRoute: introRoute,
+              home: const HomePage(),
+              //navigatorKey: _navigatorKey,
+              localizationsDelegates: const [
+                S.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              //home: LoginView(),
+              supportedLocales: S.delegate.supportedLocales,
+            );
+          },
+        );
+      },
     );
   }
 }
@@ -105,7 +143,7 @@ class HomePage extends StatelessWidget {
         //Navigator.of(context).pushReplacementNamed(postsRoute);
       },
       builder: (context, state) {
-        return PostsView();
+        return const PostsView();
       },
     );
   }

@@ -9,11 +9,27 @@ class CommentsListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    Widget _buildImages() {
+      if (comment.uploads.isEmpty) {
+        return Container();
+      }
+
+      return Container(
+        child: Image.network(comment.uploads[0].data),
+      );
+    }
+
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        verticalSpaceTiny,
+        Text(comment.userId.toString()),
         verticalSpaceSmall,
         Text(comment.text),
+        verticalSpaceTiny,
+        _buildImages(),
+        verticalSpaceMedium,
       ],
     );
   }

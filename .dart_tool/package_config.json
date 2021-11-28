@@ -75,7 +75,7 @@
     },
     {
       "name": "connectivity_plus",
-      "rootUri": "file:///home/david/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/connectivity_plus-1.4.0",
+      "rootUri": "file:///home/david/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/connectivity_plus-2.0.3",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -148,12 +148,6 @@
     {
       "name": "equatable",
       "rootUri": "file:///home/david/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/equatable-2.0.3",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "eva_icons_flutter",
-      "rootUri": "file:///home/david/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/eva_icons_flutter-3.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -261,13 +255,13 @@
     },
     {
       "name": "graphql",
-      "rootUri": "file:///home/david/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/graphql-5.0.0",
+      "rootUri": "file:///home/david/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/graphql-5.0.1-beta.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "graphql_flutter",
-      "rootUri": "file:///home/david/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/graphql_flutter-5.0.0",
+      "rootUri": "file:///home/david/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/graphql_flutter-5.0.1-beta.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -447,7 +441,7 @@
     },
     {
       "name": "rxdart",
-      "rootUri": "file:///home/david/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/rxdart-0.26.0",
+      "rootUri": "file:///home/david/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/rxdart-0.27.3",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -554,7 +548,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-11-26T10:45:00.580543Z",
+  "generated": "2021-11-27T16:46:37.136018Z",
   "generator": "pub",
   "generatorVersion": "2.14.4"
 }

@@ -5,6 +5,8 @@ abstract class ThemeEvent extends Equatable {
 }
 
 class LoadTheme extends ThemeEvent {
+  const LoadTheme();
+
   @override
   List<Object?> get props => const <Object?>[];
 }
