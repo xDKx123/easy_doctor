@@ -1,5 +1,6 @@
 import 'package:easy_doctor/generated/l10n.dart';
 import 'package:easy_doctor/src/app/routes/routes.dart';
+import 'package:easy_doctor/src/blocs/all_chat_bloc/all_chat_bloc.dart';
 import 'package:easy_doctor/src/blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:easy_doctor/src/blocs/comments_bloc/comments_bloc.dart';
 import 'package:easy_doctor/src/blocs/connectivity_bloc/connectivity_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:easy_doctor/src/blocs/language_bloc/language_bloc.dart';
 import 'package:easy_doctor/src/blocs/posts_bloc/posts_bloc.dart';
 import 'package:easy_doctor/src/blocs/profile_bloc/profile_bloc.dart';
 import 'package:easy_doctor/src/blocs/theme_bloc/theme_bloc.dart';
+import 'package:easy_doctor/src/repositories/chat_repository.dart';
 import 'package:easy_doctor/src/repositories/comments_repository.dart';
 import 'package:easy_doctor/src/repositories/posts_repository.dart';
 import 'package:easy_doctor/src/repositories/profile_repository.dart';
@@ -17,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'blocs/chat_messages/chat_messages_bloc.dart';
 import 'blocs/smart_list_bloc/smart_list_bloc.dart';
 
 class App extends StatelessWidget {
@@ -26,12 +29,14 @@ class App extends StatelessWidget {
     required this.commentsRepository,
     required this.profileRepository,
     required this.localStorageRepository,
+    required this.chatRepository,
   }) : super(key: key);
 
   final PostsRepository postsRepository;
   final CommentsRepository commentsRepository;
   final ProfileRepository profileRepository;
   final LocalStorageRepository localStorageRepository;
+  final ChatRepository chatRepository;
 
   //final ValueNotifier<GraphQLClient> client;
   //HttpLink httpLink = HttpLink("http://10.0.2.2:4000/");
@@ -69,7 +74,13 @@ class App extends StatelessWidget {
           create: (context) =>
               LanguageBloc(localStorageRepository: localStorageRepository)
                 ..add(const LoadLanguage()),
-        )
+        ),
+        BlocProvider<AllChatBloc>(
+          create: (context) => AllChatBloc(chatRepository: chatRepository),
+        ),
+        BlocProvider<ChatMessagesBloc>(
+          create: (context) => ChatMessagesBloc(chatRepository: chatRepository),
+        ),
       ],
       child: const AppView(),
     );
@@ -106,9 +117,9 @@ class _AppViewState extends State<AppView> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeBloc, ThemeState>(
-      builder: (context, state) {
+      builder: (context, themeState) {
         return BlocBuilder<LanguageBloc, LanguageState>(
-          builder: (context, state) {
+          builder: (context, languageState) {
             return MaterialApp(
               title: 'Easy doctor',
               onGenerateRoute: generateRoute,
@@ -137,13 +148,24 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return BlocConsumer<AuthenticationBloc, AuthenticationState>(
-      listener: (context, state) {
-        //_navigator.pushNamed(postsRoute);
-        //Navigator.of(context).pushReplacementNamed(postsRoute);
+    return BlocConsumer<ConnectivityBloc, ConnectivityState>(
+      listener: (context, connectivityState) {
+        if (connectivityState is ConnectivityConnected) {
+          print('is connected');
+        } else if (connectivityState is ConnectivityDisconnected) {
+          print('is not connected');
+        }
       },
       builder: (context, state) {
-        return const PostsView();
+        return BlocConsumer<AuthenticationBloc, AuthenticationState>(
+          listener: (context, state) {
+            //_navigator.pushNamed(postsRoute);
+            //Navigator.of(context).pushReplacementNamed(postsRoute);
+          },
+          builder: (context, state) {
+            return const PostsView();
+          },
+        );
       },
     );
   }

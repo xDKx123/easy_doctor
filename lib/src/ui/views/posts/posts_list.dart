@@ -64,7 +64,7 @@ class _PostsListState extends State<PostsList> {
       key: drawerKey,
       body: RefreshIndicator(
         onRefresh: () async {
-          BlocProvider.of<PostsBloc>(context).add(LoadPosts());
+          BlocProvider.of<PostsBloc>(context).add(const LoadPosts());
         },
         child: CustomScrollView(
           slivers: [

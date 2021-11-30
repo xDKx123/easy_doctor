@@ -1,5 +1,6 @@
 import 'package:easy_doctor/src/app/routes/route_names.dart';
 import 'package:easy_doctor/src/blocs/authentication_bloc/authentication_bloc.dart';
+import 'package:easy_doctor/src/ui/views/chat/all_chat/all_chat_view.dart';
 import 'package:easy_doctor/src/ui/views/intro/intro_view.dart';
 import 'package:easy_doctor/src/ui/views/login/login_view.dart';
 import 'package:easy_doctor/src/ui/views/posts/posts_view.dart';
@@ -39,6 +40,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getGuardedPageRoute(const SettingsView(), settings);
     case postsRoute:
       return _getGuardedPageRoute(const PostsView(), settings);
+    case chatsRoute:
+      return _getGuardedPageRoute(const AllChatView(), settings);
     default:
       return _getGuardedPageRoute(const LoginView(), settings);
   }

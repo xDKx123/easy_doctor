@@ -25,5 +25,5 @@ class PostsNotLoaded extends PostsState {
   final String message;
 
   @override
-  List<Object> get props => [message];
+  List<Object> get props => <Object>[message];
 }

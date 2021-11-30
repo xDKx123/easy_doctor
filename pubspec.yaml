@@ -46,8 +46,9 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^1.0.0
+  flutter_lints: ^1.0.4
 
+  #for bloc pattern
   flutter_bloc: ^7.3.3
 
   logger: ^1.1.0
@@ -58,11 +59,16 @@ dev_dependencies:
 
   email_validator: ^2.0.1
 
+  #localisations
   intl_utils: ^2.5.1
 
   graphql_flutter: ^5.0.0
 
+  #checking connectivity
   connectivity_plus: ^2.0.3
+
+  #for picking images from gallery
+  image_picker: ^0.8.4+4
 
   #implicitly_animated_reorderable_list: ^0.4.2
 # For information on the generic Dart part of this file, see the

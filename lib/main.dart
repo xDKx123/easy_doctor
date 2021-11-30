@@ -1,5 +1,6 @@
 import 'package:easy_doctor/src/app.dart';
 import 'package:easy_doctor/src/graphQl/graphql.dart';
+import 'package:easy_doctor/src/repositories/chat_repository.dart';
 import 'package:easy_doctor/src/repositories/comments_repository.dart';
 import 'package:easy_doctor/src/repositories/posts_repository.dart';
 import 'package:easy_doctor/src/repositories/profile_repository.dart';
@@ -16,5 +17,6 @@ void main() async {
     commentsRepository: CommentsRepository(),
     profileRepository: ProfileRepository(),
     localStorageRepository: LocalStorageRepository(),
+    chatRepository: const ChatRepository(),
   ));
 }

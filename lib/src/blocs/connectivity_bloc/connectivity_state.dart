@@ -4,12 +4,9 @@ abstract class ConnectivityState extends Equatable {
   const ConnectivityState();
 }
 
-class ConnectivityInitial extends ConnectivityState {
-  @override
-  List<Object> get props => [];
-}
-
 class ConnectivityConnected extends ConnectivityState {
+  const ConnectivityConnected();
+
   @override
   List<Object?> get props => [];
 
@@ -20,6 +17,8 @@ class ConnectivityConnected extends ConnectivityState {
 }
 
 class ConnectivityDisconnected extends ConnectivityState {
+  const ConnectivityDisconnected();
+
   @override
   List<Object?> get props => [];
 
@@ -41,4 +40,11 @@ class ConnectivityFail extends ConnectivityState {
   String toString() {
     return '"ConnectivityFail": {"error": $error}';
   }
+}
+
+class ConnectivityUnknown extends ConnectivityState {
+  const ConnectivityUnknown();
+
+  @override
+  List<Object?> get props => <Object?>[];
 }

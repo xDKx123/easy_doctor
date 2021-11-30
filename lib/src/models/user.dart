@@ -10,6 +10,7 @@ class UserModel extends Equatable {
       required this.name,
       required this.surname,
       required this.status,
+      required this.profileImageUrl,
       required this.timestamps});
 
   final UserID id;
@@ -17,6 +18,7 @@ class UserModel extends Equatable {
   final String name;
   final String surname;
   final UserStatus status;
+  final String profileImageUrl;
   final TimestampsModel timestamps;
 
   UserModel copyWith(
@@ -25,6 +27,7 @@ class UserModel extends Equatable {
       final String? name,
       final String? surname,
       final UserStatus? status,
+      final String? profileImageUrl,
       final TimestampsModel? timestamps}) {
     return UserModel(
         id: id ?? this.id,
@@ -32,11 +35,13 @@ class UserModel extends Equatable {
         name: name ?? this.name,
         surname: surname ?? this.surname,
         status: status ?? this.status,
+        profileImageUrl: profileImageUrl ?? this.profileImageUrl,
         timestamps: timestamps ?? this.timestamps);
   }
 
   @override
-  List<Object?> get props => [id, email, name, surname, status, timestamps];
+  List<Object?> get props =>
+      [id, email, name, surname, status, profileImageUrl, timestamps];
 }
 
 class UserID extends ID {

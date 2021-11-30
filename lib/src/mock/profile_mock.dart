@@ -7,4 +7,5 @@ UserModel loggedUser = UserModel(
     name: 'Test name',
     surname: 'test surname',
     status: UserStatus.user,
+    profileImageUrl: '',
     timestamps: timestampsModelMock);

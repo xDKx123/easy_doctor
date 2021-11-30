@@ -10,3 +10,12 @@ class ConnectivityEmit extends ConnectivityEvent {
   @override
   List<Object?> get props => [];
 }
+
+class ConnectivityChange extends ConnectivityEvent {
+  const ConnectivityChange({required this.connectivity});
+
+  final ConnectivityResult connectivity;
+
+  @override
+  List<Object?> get props => [];
+}

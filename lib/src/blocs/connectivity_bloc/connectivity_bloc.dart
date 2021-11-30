@@ -14,13 +14,13 @@ class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
   final Connectivity _connectivity = Connectivity();
   final Logger _logger = CustomLogger().getLogger();
 
-  ConnectivityBloc() : super(ConnectivityDisconnected()) {
-    on<ConnectivityEvent>((event, emit) {
+  ConnectivityBloc() : super(const ConnectivityUnknown()) {
+    on<ConnectivityEvent>((event, emit) async {
       if (event is ConnectivityEmit) {
-        _onConnectivityEmit(event, emit);
-        /*_connectivity.onConnectivityChanged.listen((event) {
-          _updateConnectionStatus(event, emit);*/
-        //});
+        await _onConnectivityEmit(event, emit);
+      }
+      if (event is ConnectivityChange) {
+        await _updateConnectionStatus(event.connectivity, emit);
       }
     });
   }
@@ -31,7 +31,8 @@ class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
       await _connectivity.checkConnectivity();
 
       _connectivity.onConnectivityChanged.listen((event) {
-        _updateConnectionStatus(event, emit);
+        //_updateConnectionStatus(event, emit);
+        add(ConnectivityChange(connectivity: event));
       });
     } catch (e) {
       _logger.e(e);
@@ -39,16 +40,14 @@ class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
     }
   }
 
-  void _updateConnectionStatus(
-      ConnectivityResult result, Emitter<ConnectivityState> emit) {
+  Future<void> _updateConnectionStatus(
+      ConnectivityResult result, Emitter<ConnectivityState> emit) async {
     switch (result) {
       case ConnectivityResult.none:
-        _logger.d('Is connected');
         emit(ConnectivityDisconnected());
         break;
       default:
-        _logger.d('Is not connected');
-        emit(ConnectivityConnected());
+        emit(const ConnectivityConnected());
         break;
     }
 /*    setState(() {

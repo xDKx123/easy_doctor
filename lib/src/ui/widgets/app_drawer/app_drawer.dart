@@ -12,6 +12,12 @@ class AppDrawer extends StatelessWidget {
       ),
       DrawerItem(
           onPressed: () {
+            Navigator.of(context).popAndPushNamed(chatsRoute);
+          },
+          icon: Icons.settings,
+          title: 'Chats'),
+      DrawerItem(
+          onPressed: () {
             Navigator.of(context).popAndPushNamed(postsRoute);
           },
           icon: Icons.add,

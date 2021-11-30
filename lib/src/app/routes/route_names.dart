@@ -6,3 +6,4 @@ const String settingsRoute = '/settings';
 const String profileRoute = '/profile';
 const String introRoute = '/intro';
 const String postsRoute = '/posts';
+const String chatsRoute = '/chats';
