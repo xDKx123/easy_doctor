@@ -7,3 +7,4 @@ const String profileRoute = '/profile';
 const String introRoute = '/intro';
 const String postsRoute = '/posts';
 const String chatsRoute = '/chats';
+const String medicalRecordRoute = '/medicalRecord';

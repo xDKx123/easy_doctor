@@ -13,7 +13,8 @@ class PersonChatListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    final Color color = isMe ? Colors.grey : Colors.red;
+    final Color color =
+        isMe ? Theme.of(context).canvasColor : Theme.of(context).cardColor;
     final BoxDecoration boxDecoration = BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(15)),
         color: color);

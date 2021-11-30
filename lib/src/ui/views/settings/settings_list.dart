@@ -1,3 +1,4 @@
+import 'package:easy_doctor/src/app/routes/route_names.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,12 +18,24 @@ class _SettingsListState extends State<SettingsList> {
 
     return Scaffold(
       body: CustomScrollView(
-        slivers: [
+        slivers: <Widget>[
           SliverAppBar(
             title: GestureDetector(
               onDoubleTap: () async {},
               child: Text('Settings'),
             ),
+            actions: <Widget>[
+              IconButton(
+                onPressed: () async {
+                  await Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    loginRoute,
+                    (Route<dynamic> route) => false,
+                  );
+                },
+                icon: const Icon(Icons.logout),
+              ),
+            ],
           ),
           SliverList(
             delegate: SliverChildListDelegate(_buildItems()),

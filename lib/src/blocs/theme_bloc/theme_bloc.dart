@@ -10,9 +10,14 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   ThemeBloc()
       : super(ThemeState(
             themeData: appThemeData[AppThemes.dark] ?? ThemeData.dark())) {
-    on<ThemeEvent>((event, emit) {
-      // TODO: implement event handler
-      if (event is LoadTheme) {}
+    on<ThemeEvent>((ThemeEvent event, Emitter<ThemeState> emit) async {
+      if (event is LoadTheme) {
+        await _onLoadTheme(event, emit);
+      }
     });
+  }
+
+  Future<void> _onLoadTheme(LoadTheme event, Emitter<ThemeState> emit) async {
+    emit(ThemeState(themeData: appThemeData[AppThemes.dark]!));
   }
 }

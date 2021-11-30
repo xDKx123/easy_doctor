@@ -43,16 +43,8 @@ class _CommentsList extends State<CommentsList> {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) {
-          return Card(
-            margin: const EdgeInsets.all(15),
-            child: Container(
-              color: Colors.blue[100 * (index % 9 + 1)],
-              //height: 80,
-              alignment: Alignment.center,
-              child: CommentsListItem(
-                comment: widget.post.comments.elementAt(index),
-              ),
-            ),
+          return CommentsListItem(
+            comment: widget.post.comments.elementAt(index),
           );
         },
         childCount: widget.post.comments.length,

@@ -31,37 +31,51 @@ class _AllChatListItem extends State<AllChatListItem> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () async {
-        await Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (BuildContext context) =>
-                PersonChatView(chat: widget.chat),
-          ),
-        );
-      },
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Image.network(
+    return Card(
+      color: Theme.of(context).scaffoldBackgroundColor,
+      margin: const EdgeInsets.fromLTRB(15, 20, 15, 0),
+      child: Container(
+        alignment: Alignment.center,
+        child: InkWell(
+          onTap: () async {
+            await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    PersonChatView(chat: widget.chat),
+              ),
+            );
+          },
+          child: Column(
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  const CircleAvatar(
+                    radius: 30,
+                    backgroundImage: NetworkImage(
+                      'https://picsum.photos/250?image=9',
+                      //width: 60,
+                    ),
+                  ),
+                  /*Image.network(
                 'https://picsum.photos/250?image=9',
                 width: 70,
                 loadingBuilder: loadingBuilder,
                 errorBuilder: errorBuilder,
-              ),
-              horizontalSpaceSmall,
-              Column(
-                children: [
-                  Text(widget.chat.interlocutor.name +
-                      ' ' +
-                      widget.chat.interlocutor.surname),
+              ),*/
+                  horizontalSpaceSmall,
+                  Column(
+                    children: <Widget>[
+                      Text(widget.chat.interlocutor.name +
+                          ' ' +
+                          widget.chat.interlocutor.surname),
+                    ],
+                  )
                 ],
-              )
+              ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }

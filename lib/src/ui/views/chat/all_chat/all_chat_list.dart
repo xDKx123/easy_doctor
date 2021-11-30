@@ -41,9 +41,10 @@ class _AllChatList extends State<AllChatList> {
         delegate: SliverChildBuilderDelegate(
           (BuildContext context, int index) {
             return Card(
-              margin: const EdgeInsets.all(15),
+              color: Theme.of(context).scaffoldBackgroundColor,
+              margin: const EdgeInsets.fromLTRB(15, 0, 15, 5),
               child: Container(
-                color: Colors.blue[100 * (index % 9 + 1)],
+                //color: Colors.blue[100 * (index % 9 + 1)],
                 alignment: Alignment.center,
                 child: AllChatListItem(chat: widget.chats.elementAt(index)),
               ),

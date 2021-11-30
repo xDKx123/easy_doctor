@@ -7,5 +7,5 @@ UserModel userMock = UserModel(
     name: 'Janez',
     surname: 'Novak',
     status: UserStatus.user,
-    profileImageUrl: '',
+    profileImageUrl: 'https://i.stack.imgur.com/l60Hf.png',
     timestamps: timestampsModelMock);

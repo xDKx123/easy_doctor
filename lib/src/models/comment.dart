@@ -7,14 +7,14 @@ import 'package:equatable/equatable.dart';
 class CommentModel extends Equatable {
   const CommentModel(
       {required this.id,
-      required this.userId,
+      required this.user,
       required this.text,
       required this.liked,
       required this.uploads,
       required this.timestamps});
 
   final CommentID id;
-  final UserID userId;
+  final UserModel user;
   final String text;
   final List<UserID> liked;
   final List<UploadModel> uploads;
@@ -22,7 +22,7 @@ class CommentModel extends Equatable {
 
   CommentModel copyWith({
     final CommentID? id,
-    final UserID? userId,
+    final UserModel? user,
     final String? text,
     final List<UserID>? liked,
     final List<UploadModel>? uploads,
@@ -30,7 +30,7 @@ class CommentModel extends Equatable {
   }) {
     return CommentModel(
         id: id ?? this.id,
-        userId: userId ?? this.userId,
+        user: user ?? this.user,
         text: text ?? this.text,
         liked: liked ?? this.liked,
         uploads: uploads ?? this.uploads,
@@ -39,7 +39,7 @@ class CommentModel extends Equatable {
 
   @override
   List<Object?> get props =>
-      <Object?>[id, userId, text, liked, uploads, timestamps];
+      <Object?>[id, user, text, liked, uploads, timestamps];
 }
 
 class CommentID extends ID {

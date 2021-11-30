@@ -44,9 +44,9 @@ class _PostsListState extends State<PostsList> {
         (BuildContext context, int index) {
           //return PostsListItem(post: widget.posts.elementAt(index));
           return Card(
-            margin: const EdgeInsets.all(15),
+            margin: const EdgeInsets.fromLTRB(15, 20, 15, 0),
             child: Container(
-              color: Colors.blue[100 * (index % 9 + 1)],
+              //color: Colors.blue[100 * (index % 9 + 1)],
               //height: 80,
               alignment: Alignment.center,
               child: PostsListItem(post: widget.posts[index]),
@@ -61,6 +61,7 @@ class _PostsListState extends State<PostsList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       key: drawerKey,
       body: RefreshIndicator(
         onRefresh: () async {

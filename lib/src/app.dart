@@ -117,16 +117,17 @@ class _AppViewState extends State<AppView> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeBloc, ThemeState>(
-      builder: (context, themeState) {
+      builder: (BuildContext context, ThemeState themeState) {
         return BlocBuilder<LanguageBloc, LanguageState>(
-          builder: (context, languageState) {
+          builder: (BuildContext context, LanguageState languageState) {
             return MaterialApp(
               title: 'Easy doctor',
               onGenerateRoute: generateRoute,
               //initialRoute: introRoute,
               home: const HomePage(),
               //navigatorKey: _navigatorKey,
-              localizationsDelegates: const [
+              theme: themeState.themeData,
+              localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
                 S.delegate,
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
@@ -147,22 +148,21 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return BlocConsumer<ConnectivityBloc, ConnectivityState>(
-      listener: (context, connectivityState) {
+      listener: (BuildContext context, ConnectivityState connectivityState) {
         if (connectivityState is ConnectivityConnected) {
           print('is connected');
         } else if (connectivityState is ConnectivityDisconnected) {
           print('is not connected');
         }
       },
-      builder: (context, state) {
+      builder: (BuildContext context, ConnectivityState state) {
         return BlocConsumer<AuthenticationBloc, AuthenticationState>(
-          listener: (context, state) {
+          listener: (BuildContext context, AuthenticationState state) {
             //_navigator.pushNamed(postsRoute);
             //Navigator.of(context).pushReplacementNamed(postsRoute);
           },
-          builder: (context, state) {
+          builder: (BuildContext context, AuthenticationState state) {
             return const PostsView();
           },
         );
