@@ -1,5 +1,5 @@
 import 'package:easy_doctor/src/mock/timestamps_mock.dart';
-import 'package:easy_doctor/src/models/user.dart';
+import 'package:easy_doctor/src/models/user_model.dart';
 
 UserModel userMock = UserModel(
     id: UserID('1'),

@@ -12,7 +12,7 @@ class PasswordInput extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Column(
-      children: [
+      children: <Widget>[
         const Text('Password'),
         TextFormField(
           initialValue: loginForm.password,
@@ -21,7 +21,7 @@ class PasswordInput extends StatelessWidget {
             //email = value;
           },
           decoration: const InputDecoration(
-            prefixIcon: Icon(Icons.email),
+            prefixIcon: Icon(Icons.password),
           ),
         )
       ],

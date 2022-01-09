@@ -1,5 +1,5 @@
 import 'package:easy_doctor/src/blocs/all_chat_bloc/all_chat_bloc.dart';
-import 'package:easy_doctor/src/models/chat.dart';
+import 'package:easy_doctor/src/models/chat_model.dart';
 import 'package:easy_doctor/src/ui/views/chat/all_chat/all_chat_list_item.dart';
 import 'package:easy_doctor/src/ui/widgets/app_drawer/app_drawer.dart';
 import 'package:flutter/cupertino.dart';

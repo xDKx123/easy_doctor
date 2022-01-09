@@ -1,5 +1,5 @@
 import 'package:easy_doctor/src/blocs/posts_bloc/posts_bloc.dart';
-import 'package:easy_doctor/src/models/post.dart';
+import 'package:easy_doctor/src/models/post_model.dart';
 import 'package:easy_doctor/src/ui/views/posts/posts_list_item.dart';
 import 'package:easy_doctor/src/ui/widgets/app_drawer/app_drawer.dart';
 import 'package:flutter/cupertino.dart';
@@ -72,7 +72,7 @@ class _PostsListState extends State<PostsList> {
             SliverAppBar(
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
-                title: Text('Posts list'),
+                title: Text('Posts'),
               ),
               automaticallyImplyLeading: false,
               leading: IconButton(
@@ -81,6 +81,12 @@ class _PostsListState extends State<PostsList> {
                 },
                 icon: const Icon(Icons.menu),
               ),
+              actions: [
+                IconButton(
+                  onPressed: () async {},
+                  icon: const Icon(Icons.notifications),
+                ),
+              ],
             ),
             buildMainContext(),
           ],

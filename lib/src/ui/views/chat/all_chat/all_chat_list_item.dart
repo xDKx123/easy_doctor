@@ -1,4 +1,4 @@
-import 'package:easy_doctor/src/models/chat.dart';
+import 'package:easy_doctor/src/models/chat_model.dart';
 import 'package:easy_doctor/src/ui/views/chat/person_chat/person_chat_view.dart';
 import 'package:easy_doctor/src/ui/widgets/helpers/ui_helpers.dart';
 import 'package:flutter/cupertino.dart';

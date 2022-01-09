@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:easy_doctor/src/models/comment.dart';
-import 'package:easy_doctor/src/models/post.dart';
+import 'package:easy_doctor/src/models/comment_model.dart';
+import 'package:easy_doctor/src/models/post_model.dart';
 import 'package:easy_doctor/src/repositories/comments_repository.dart';
 import 'package:easy_doctor/src/utils/logger.dart';
 import 'package:equatable/equatable.dart';

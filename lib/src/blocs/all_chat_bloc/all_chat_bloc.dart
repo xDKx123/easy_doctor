@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:easy_doctor/src/models/chat.dart';
+import 'package:easy_doctor/src/models/chat_model.dart';
 import 'package:easy_doctor/src/repositories/chat_repository.dart';
 import 'package:easy_doctor/src/utils/logger.dart';
 import 'package:equatable/equatable.dart';

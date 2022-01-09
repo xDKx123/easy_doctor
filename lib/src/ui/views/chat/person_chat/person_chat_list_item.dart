@@ -1,4 +1,4 @@
-import 'package:easy_doctor/src/models/chat_message.dart';
+import 'package:easy_doctor/src/models/chat_message_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

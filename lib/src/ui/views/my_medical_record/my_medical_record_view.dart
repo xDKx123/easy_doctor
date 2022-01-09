@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class MyMedicalRecordView extends StatefulWidget {
   const MyMedicalRecordView({Key? key}) : super(key: key);
@@ -10,7 +11,8 @@ class MyMedicalRecordView extends StatefulWidget {
 class _MyMedicalRecordView extends State<MyMedicalRecordView> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Scaffold(
+      appBar: AppBar(),
+    );
   }
 }

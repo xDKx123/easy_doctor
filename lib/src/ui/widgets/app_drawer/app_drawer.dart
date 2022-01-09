@@ -79,6 +79,13 @@ class AppDrawer extends StatelessWidget {
           icon: Icons.insert_drive_file_outlined,
           title: 'My medical record',
         ),
+        DrawerItem(
+          onPressed: () {
+            Navigator.of(context).popAndPushNamed(personalListRoute);
+          },
+          icon: Icons.list,
+          title: 'Personal lists',
+        ),
         Expanded(
           child: Align(
             alignment: Alignment.bottomCenter,

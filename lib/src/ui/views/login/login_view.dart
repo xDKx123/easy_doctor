@@ -1,9 +1,8 @@
 import 'package:easy_doctor/generated/l10n.dart';
-import 'package:easy_doctor/src/blocs/authentication_bloc/authentication_bloc.dart';
+import 'package:easy_doctor/src/app/routes/route_names.dart';
 import 'package:easy_doctor/src/ui/widgets/helpers/ui_helpers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'forms/email_input.dart';
 import 'forms/login_form.dart';
@@ -34,12 +33,15 @@ class _LoginViewState extends State<LoginView> {
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.6,
             //height: MediaQuery.of(context).size.height * ,
-            child: ElevatedButton(
+            child: TextButton.icon(
               onPressed: () async {
-                BlocProvider.of<AuthenticationBloc>(context)
-                    .add(LoginSubmitted(email: 'test', password: 'test'));
+                /*BlocProvider.of<AuthenticationBloc>(context)
+                    .add(LoginSubmitted(email: 'test', password: 'test'));*/
+
+                await Navigator.pushNamed(context, postsRoute);
               },
-              child: const Text('Login'),
+              label: const Text('Login'),
+              icon: const Icon(Icons.login),
             ),
           ),
           verticalSpaceSmall,

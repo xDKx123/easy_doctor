@@ -4,6 +4,7 @@ import 'package:easy_doctor/src/ui/views/chat/all_chat/all_chat_view.dart';
 import 'package:easy_doctor/src/ui/views/intro/intro_view.dart';
 import 'package:easy_doctor/src/ui/views/login/login_view.dart';
 import 'package:easy_doctor/src/ui/views/my_medical_record/my_medical_record_view.dart';
+import 'package:easy_doctor/src/ui/views/personal_list/personal_list_view.dart';
 import 'package:easy_doctor/src/ui/views/posts/posts_view.dart';
 import 'package:easy_doctor/src/ui/views/settings/settings_view.dart';
 import 'package:easy_doctor/src/ui/views/splash/splash_view.dart';
@@ -45,6 +46,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getGuardedPageRoute(const AllChatView(), settings);
     case medicalRecordRoute:
       return _getGuardedPageRoute(const MyMedicalRecordView(), settings);
+    case personalListRoute:
+      return _getGuardedPageRoute(const PersonalListView(), settings);
     default:
       return _getGuardedPageRoute(const LoginView(), settings);
   }

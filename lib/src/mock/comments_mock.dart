@@ -1,9 +1,9 @@
 import 'package:easy_doctor/src/mock/timestamps_mock.dart';
 import 'package:easy_doctor/src/mock/uploads_mock.dart';
 import 'package:easy_doctor/src/mock/user_mock.dart';
-import 'package:easy_doctor/src/models/comment.dart';
-import 'package:easy_doctor/src/models/upload.dart';
-import 'package:easy_doctor/src/models/user.dart';
+import 'package:easy_doctor/src/models/comment_model.dart';
+import 'package:easy_doctor/src/models/upload_model.dart';
+import 'package:easy_doctor/src/models/user_model.dart';
 
 List<CommentModel> commentsMock = <CommentModel>[
   CommentModel(

@@ -1,4 +1,4 @@
-import 'package:easy_doctor/src/models/post.dart';
+import 'package:easy_doctor/src/models/post_model.dart';
 import 'package:easy_doctor/src/ui/widgets/comments/comments_view.dart';
 import 'package:easy_doctor/src/ui/widgets/helpers/ui_helpers.dart';
 import 'package:flutter/cupertino.dart';

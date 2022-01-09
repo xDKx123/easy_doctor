@@ -5,14 +5,18 @@ import 'package:easy_doctor/src/blocs/authentication_bloc/authentication_bloc.da
 import 'package:easy_doctor/src/blocs/comments_bloc/comments_bloc.dart';
 import 'package:easy_doctor/src/blocs/connectivity_bloc/connectivity_bloc.dart';
 import 'package:easy_doctor/src/blocs/language_bloc/language_bloc.dart';
+import 'package:easy_doctor/src/blocs/personal_list_bloc/personal_list_bloc.dart';
+import 'package:easy_doctor/src/blocs/personal_list_items_bloc/personal_list_items_bloc.dart';
 import 'package:easy_doctor/src/blocs/posts_bloc/posts_bloc.dart';
 import 'package:easy_doctor/src/blocs/profile_bloc/profile_bloc.dart';
 import 'package:easy_doctor/src/blocs/theme_bloc/theme_bloc.dart';
 import 'package:easy_doctor/src/repositories/chat_repository.dart';
 import 'package:easy_doctor/src/repositories/comments_repository.dart';
+import 'package:easy_doctor/src/repositories/personal_list_item_repository.dart';
+import 'package:easy_doctor/src/repositories/personal_list_repository.dart';
 import 'package:easy_doctor/src/repositories/posts_repository.dart';
 import 'package:easy_doctor/src/repositories/profile_repository.dart';
-import 'package:easy_doctor/src/ui/views/posts/posts_view.dart';
+import 'package:easy_doctor/src/ui/views/login/login_view.dart';
 import 'package:easy_doctor/src/utils/localStorage/local_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +34,8 @@ class App extends StatelessWidget {
     required this.profileRepository,
     required this.localStorageRepository,
     required this.chatRepository,
+    required this.personalListItemRepository,
+    required this.personalListRepository,
   }) : super(key: key);
 
   final PostsRepository postsRepository;
@@ -37,6 +43,8 @@ class App extends StatelessWidget {
   final ProfileRepository profileRepository;
   final LocalStorageRepository localStorageRepository;
   final ChatRepository chatRepository;
+  final PersonalListItemRepository personalListItemRepository;
+  final PersonalListRepository personalListRepository;
 
   //final ValueNotifier<GraphQLClient> client;
   //HttpLink httpLink = HttpLink("http://10.0.2.2:4000/");
@@ -49,37 +57,62 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: <BlocProvider<dynamic>>[
         BlocProvider<AuthenticationBloc>(
-          create: (context) => AuthenticationBloc(),
+          create: (BuildContext context) => AuthenticationBloc(),
         ),
         BlocProvider<ThemeBloc>(
-          create: (context) => ThemeBloc()..add(const LoadTheme()),
+          create: (BuildContext context) => ThemeBloc()
+            ..add(
+              const LoadTheme(),
+            ),
         ),
-        BlocProvider<SmartListBloc>(create: (_) => SmartListBloc()),
+        BlocProvider<SmartListBloc>(
+          create: (_) => SmartListBloc(),
+        ),
         BlocProvider<PostsBloc>(
-          create: (context) => PostsBloc(postsRepository: postsRepository),
+          create: (BuildContext context) =>
+              PostsBloc(postsRepository: postsRepository),
         ),
         BlocProvider<CommentsBloc>(
-          create: (context) =>
-              CommentsBloc(commentsRepository: commentsRepository),
+          create: (BuildContext context) => CommentsBloc(
+            commentsRepository: commentsRepository,
+          ),
         ),
         BlocProvider<ConnectivityBloc>(
-          create: (context) =>
-              ConnectivityBloc()..add(const ConnectivityEmit()),
+          create: (BuildContext context) => ConnectivityBloc()
+            ..add(
+              const ConnectivityEmit(),
+            ),
         ),
         BlocProvider<ProfileBloc>(
-          create: (context) => ProfileBloc(profileRepository: profileRepository)
-            ..add(LoadProfile()),
+          create: (BuildContext context) => ProfileBloc(
+            profileRepository: profileRepository,
+          )..add(LoadProfile()),
         ),
         BlocProvider<LanguageBloc>(
-          create: (context) =>
-              LanguageBloc(localStorageRepository: localStorageRepository)
-                ..add(const LoadLanguage()),
+          create: (BuildContext context) => LanguageBloc(
+            localStorageRepository: localStorageRepository,
+          )..add(const LoadLanguage()),
         ),
         BlocProvider<AllChatBloc>(
-          create: (context) => AllChatBloc(chatRepository: chatRepository),
+          create: (BuildContext context) => AllChatBloc(
+            chatRepository: chatRepository,
+          ),
         ),
         BlocProvider<ChatMessagesBloc>(
-          create: (context) => ChatMessagesBloc(chatRepository: chatRepository),
+          create: (BuildContext context) => ChatMessagesBloc(
+            chatRepository: chatRepository,
+          ),
+        ),
+        BlocProvider<PersonalListBloc>(
+          create: (BuildContext context) => PersonalListBloc(
+            personalListItemRepository: personalListItemRepository,
+            personalListRepository: personalListRepository,
+          ),
+        ),
+        BlocProvider<PersonalListItemsBloc>(
+          create: (BuildContext context) => PersonalListItemsBloc(
+            personalListItemRepository: personalListItemRepository,
+          ),
         ),
       ],
       child: const AppView(),
@@ -125,6 +158,7 @@ class _AppViewState extends State<AppView> {
               onGenerateRoute: generateRoute,
               //initialRoute: introRoute,
               home: const HomePage(),
+              //initialRoute: introRoute,
               //navigatorKey: _navigatorKey,
               theme: themeState.themeData,
               localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
@@ -163,7 +197,8 @@ class HomePage extends StatelessWidget {
             //Navigator.of(context).pushReplacementNamed(postsRoute);
           },
           builder: (BuildContext context, AuthenticationState state) {
-            return const PostsView();
+            //return const PostsView();
+            return const LoginView();
           },
         );
       },

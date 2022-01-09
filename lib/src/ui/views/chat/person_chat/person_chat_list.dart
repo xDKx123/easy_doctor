@@ -1,7 +1,7 @@
 import 'package:easy_doctor/src/blocs/chat_messages/chat_messages_bloc.dart';
 import 'package:easy_doctor/src/blocs/profile_bloc/profile_bloc.dart';
-import 'package:easy_doctor/src/models/chat_message.dart';
-import 'package:easy_doctor/src/models/user.dart';
+import 'package:easy_doctor/src/models/chat_message_model.dart';
+import 'package:easy_doctor/src/models/user_model.dart';
 import 'package:easy_doctor/src/ui/views/chat/person_chat/person_chat_list_item.dart';
 import 'package:easy_doctor/src/ui/widgets/helpers/ui_helpers.dart';
 import 'package:flutter/cupertino.dart';

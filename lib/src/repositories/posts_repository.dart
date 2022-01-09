@@ -1,5 +1,5 @@
 import 'package:easy_doctor/src/mock/posts_mock.dart';
-import 'package:easy_doctor/src/models/post.dart';
+import 'package:easy_doctor/src/models/post_model.dart';
 
 class PostsRepository {
   Future<List<PostModel>> listPosts() async {

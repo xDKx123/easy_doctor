@@ -1,7 +1,7 @@
 import 'package:easy_doctor/src/mock/timestamps_mock.dart';
 import 'package:easy_doctor/src/mock/user_mock.dart';
-import 'package:easy_doctor/src/models/chat_message.dart';
-import 'package:easy_doctor/src/models/upload.dart';
+import 'package:easy_doctor/src/models/chat_message_model.dart';
+import 'package:easy_doctor/src/models/upload_model.dart';
 
 List<ChatMessageModel> chatMessagesMock = <ChatMessageModel>[
   ChatMessageModel(

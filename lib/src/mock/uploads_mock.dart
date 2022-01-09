@@ -1,5 +1,5 @@
 import 'package:easy_doctor/src/mock/timestamps_mock.dart';
-import 'package:easy_doctor/src/models/upload.dart';
+import 'package:easy_doctor/src/models/upload_model.dart';
 
 List<UploadModel> listUploadsMock = <UploadModel>[
   UploadModel(

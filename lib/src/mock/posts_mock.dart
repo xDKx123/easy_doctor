@@ -1,7 +1,7 @@
 import 'package:easy_doctor/src/mock/timestamps_mock.dart';
-import 'package:easy_doctor/src/models/post.dart';
-import 'package:easy_doctor/src/models/upload.dart';
-import 'package:easy_doctor/src/models/user.dart';
+import 'package:easy_doctor/src/models/post_model.dart';
+import 'package:easy_doctor/src/models/upload_model.dart';
+import 'package:easy_doctor/src/models/user_model.dart';
 
 import 'comments_mock.dart';
 
