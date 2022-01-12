@@ -2,6 +2,7 @@ import 'package:easy_doctor/src/blocs/personal_list_bloc/personal_list_bloc.dart
 import 'package:easy_doctor/src/models/personal_list_model.dart';
 import 'package:easy_doctor/src/ui/views/personal_list/personal_list_list.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PersonalListView extends StatefulWidget {
@@ -24,7 +25,16 @@ class _PersonalListViewState extends State<PersonalListView> {
         return true;
       },
       child: BlocConsumer<PersonalListBloc, PersonalListState>(
-        listener: (BuildContext context, PersonalListState state) {},
+        listener: (BuildContext context, PersonalListState state) {
+          if (state is PersonalListFailed) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(SnackBar(
+                content: Text(state.error),
+                backgroundColor: Colors.red,
+              ));
+          }
+        },
         builder: (BuildContext context, PersonalListState state) {
           return PersonalListList(
             items: state is PersonalListLoaded

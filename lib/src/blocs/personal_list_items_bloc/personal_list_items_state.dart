@@ -35,3 +35,10 @@ class PersonalListItemsFailed extends PersonalListItemsState {
   @override
   List<Object?> get props => <Object>[error];
 }
+
+class PersonalListItemsSuccess extends PersonalListItemsState {
+  const PersonalListItemsSuccess();
+
+  @override
+  List<Object?> get props => <Object>[];
+}

@@ -6,7 +6,7 @@ class PersonalListAdapter {
 
   static PersonalListModel fromMap(Map<String, dynamic> map) {
     return PersonalListModel(
-      id: map['id'] != null ? PersonalListID(map['id']) : null,
+      id: map['id'] != null ? PersonalListID(map['id'].toString()) : null,
       name: map['name'],
       items: <PersonalListItemModel>[],
       description: map['description'],

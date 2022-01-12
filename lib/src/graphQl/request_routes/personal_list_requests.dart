@@ -1,4 +1,4 @@
-const String listPersonalListsRequest = '/getLists';
-const String updatePersonalListRequest = '/updateList';
-const String createPersonalListRequest = '/createList';
-const String deletePersonalListRequest = '/deleteList';
+const String listPersonalListsRequest = '/getTaskLists';
+const String updatePersonalListRequest = '/updateTaskList';
+const String createPersonalListRequest = '/addTaskList';
+const String deletePersonalListRequest = '/deleteTaskList';

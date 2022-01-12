@@ -37,6 +37,13 @@ class _PersonalListListState extends State<PersonalListList> {
         );
       }
 
+      if (widget.items.isEmpty) {
+        return const SliverFillRemaining(
+            child: Center(
+          child: Text('No items to display'),
+        ));
+      }
+
       return SliverList(
         delegate: SliverChildBuilderDelegate(
           (BuildContext context, int index) {
@@ -91,8 +98,11 @@ class _PersonalListListState extends State<PersonalListList> {
               builder: (BuildContext context) => const CreatePersonalListForm(),
             ),
           );
+
+          BlocProvider.of<PersonalListBloc>(context)
+              .add(const LoadPersonalList());
         },
-        label: Text('Add new list'),
+        label: const Text('Add new list'),
       ),
       drawer: const AppDrawer(),
     );

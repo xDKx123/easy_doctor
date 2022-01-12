@@ -14,30 +14,33 @@ class LoadPersonalListItems extends PersonalListItemsEvent {
 }
 
 class UpdatePersonalListItem extends PersonalListItemsEvent {
-  const UpdatePersonalListItem(
-      {required this.id,
-      required this.name,
-      required this.description,
-      this.deadline});
+  const UpdatePersonalListItem({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.deadline,
+    required this.completed,
+  });
 
   final PersonalListItemID id;
   final String name;
   final String description;
-  final DateTime? deadline;
+  final DateTime deadline;
+  final bool completed;
 
   @override
-  List<Object?> get props => <Object>[id, name, description];
+  List<Object?> get props => <Object>[id, name, description, completed];
 }
 
 class CreatePersonalListItem extends PersonalListItemsEvent {
   const CreatePersonalListItem(
       {required this.name,
       required this.description,
-      this.deadline,
+      required this.deadline,
       required this.listID});
 
   final String name;
-  final DateTime? deadline;
+  final DateTime deadline;
   final String description;
   final PersonalListID listID;
 

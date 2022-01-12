@@ -1,22 +1,21 @@
 import 'package:easy_doctor/src/adapters/personal_list_item_adapter.dart';
 import 'package:easy_doctor/src/graphQl/graphql.dart';
 import 'package:easy_doctor/src/graphQl/request_routes/personal_list_item_requests.dart';
-import 'package:easy_doctor/src/mock/personal_list_item_mock.dart';
 import 'package:easy_doctor/src/models/personal_list_item_model.dart';
 import 'package:easy_doctor/src/models/personal_list_model.dart';
 
 class PersonalListItemRepository {
   Future<List<PersonalListItemModel>> listPersonalListItems(
       PersonalListID listItemID) async {
-    return personalListItemsMock;
+    //return personalListItemsMock;
     try {
       final Map<String, dynamic> response = await RestRequest.postRequest(
-          request: '/getListItems',
+          request: listPersonalListItemsRequest,
           body: <String, dynamic>{
-            'id': listItemID.toString(),
+            'task_list_id': listItemID.toString(),
           });
 
-      return List<Map<String, dynamic>>.from(response['lists'])
+      return List<Map<String, dynamic>>.from(response['tasks'])
           .map((Map<String, dynamic> element) =>
               PersonalListItemAdapter.fromMap(element))
           .toList();
@@ -35,11 +34,15 @@ class PersonalListItemRepository {
     }
   }
 
-  Future<void> createPersonalListItem(PersonalListItemModel model) async {
+  Future<void> createPersonalListItem(
+      PersonalListItemModel model, PersonalListID listID) async {
     try {
+      final Map<String, dynamic> map = PersonalListItemAdapter.toMap(model);
+      map.addAll(<String, String>{'task_list_fk': listID.toString()});
+
       Map<String, dynamic> response = await RestRequest.postRequest(
         request: createPersonalListItemRequest,
-        body: PersonalListItemAdapter.toMap(model),
+        body: map,
       );
 
       //return PersonalListItemAdapter.fromMap(response);

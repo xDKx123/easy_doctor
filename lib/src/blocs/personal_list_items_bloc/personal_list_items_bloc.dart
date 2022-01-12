@@ -37,19 +37,59 @@ class PersonalListItemsBloc
 
       event.list.items.replaceRange(0, event.list.items.length, items);
 
-      emit(const PersonalListItemsLoaded(items: []));
+      emit(PersonalListItemsLoaded(items: items));
     } catch (e) {
-      print(e);
       emit(PersonalListItemsFailed(error: e.toString()));
     }
   }
 
   Future<void> _onUpdatePersonalListItem(UpdatePersonalListItem event,
-      Emitter<PersonalListItemsState> emit) async {}
+      Emitter<PersonalListItemsState> emit) async {
+    try {
+      emit(const PersonalListItemsLoading());
+
+      final PersonalListItemModel model = PersonalListItemModel(
+          name: event.name,
+          completed: event.completed,
+          deadline: event.deadline,
+          description: event.description);
+
+      await personalListItemRepository.updatePersonalListItem(model);
+
+      emit(const PersonalListItemsSuccess());
+    } catch (e) {
+      emit(PersonalListItemsFailed(error: e.toString()));
+    }
+  }
 
   Future<void> _onCreatePersonalListItem(CreatePersonalListItem event,
-      Emitter<PersonalListItemsState> emit) async {}
+      Emitter<PersonalListItemsState> emit) async {
+    try {
+      final PersonalListItemModel model = PersonalListItemModel(
+          name: event.name,
+          completed: false,
+          deadline: event.deadline,
+          description: event.description);
+
+      await personalListItemRepository.createPersonalListItem(
+          model, event.listID);
+
+      emit(const PersonalListItemsSuccess());
+    } catch (e) {
+      emit(PersonalListItemsFailed(error: e.toString()));
+    }
+  }
 
   Future<void> _onRemovePersonalListItem(RemovePersonalListItem event,
-      Emitter<PersonalListItemsState> emit) async {}
+      Emitter<PersonalListItemsState> emit) async {
+    try {
+      await personalListItemRepository.removePersonalListItem(event.id);
+
+      emit(const PersonalListItemsSuccess());
+
+      emit(const PersonalListItemsSuccess());
+    } catch (e) {
+      emit(PersonalListItemsFailed(error: e.toString()));
+    }
+  }
 }

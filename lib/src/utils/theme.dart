@@ -17,7 +17,7 @@ ThemeData darkTheme = ThemeData(
       MaterialColor(const Color(0xff709CFD).value, const <int, Color>{
     0: Color(0xff2F3245),
     100: Color(0xff212435),
-    200: Color(0xff272A3B),
+    200: Color(0xff272a3b),
     300: Color(0xff4F536C),
     400: Color(0xff709CFD),
     500: Color(0xff5C49E1),

@@ -16,9 +16,12 @@ class PersonalListBloc extends Bloc<PersonalListEvent, PersonalListState> {
         (PersonalListEvent event, Emitter<PersonalListState> emit) async {
       if (event is LoadPersonalList) {
         await _onLoadPersonalList(emit);
-      }
-      if (event is CreatePersonalList) {
+      } else if (event is CreatePersonalList) {
         await _onCreatePersonalList(event, emit);
+      } else if (event is UpdatePersonalList) {
+        await _onUpdatePersonalList(event, emit);
+      } else if (event is RemovePersonalList) {
+        await _onRemovePersonalList(event, emit);
       }
     });
   }
@@ -51,14 +54,51 @@ class PersonalListBloc extends Bloc<PersonalListEvent, PersonalListState> {
 
   Future<void> _onCreatePersonalList(
       CreatePersonalList event, Emitter<PersonalListState> emit) async {
-    emit(const PersonalListLoading());
+    try {
+      emit(const PersonalListLoading());
 
-    personalListRepository.createPersonalList(
-      PersonalListModel(
-        name: event.name,
-        items: [],
-        description: event.description,
-      ),
-    );
+      await personalListRepository.createPersonalList(
+        PersonalListModel(
+          name: event.name,
+          items: [],
+          description: event.description,
+        ),
+      );
+      emit(const PersonalListSuccess());
+    } catch (e) {
+      emit(PersonalListFailed(error: e.toString()));
+    }
+  }
+
+  Future<void> _onUpdatePersonalList(
+      UpdatePersonalList event, Emitter<PersonalListState> emit) async {
+    try {
+      emit(const PersonalListLoading());
+
+      final PersonalListModel model = PersonalListModel(
+          id: event.id,
+          name: event.name,
+          items: [],
+          description: event.description);
+
+      await personalListRepository.updatePersonalList(model);
+
+      emit(const PersonalListSuccess());
+    } catch (e) {
+      emit(PersonalListFailed(error: e.toString()));
+    }
+  }
+
+  Future<void> _onRemovePersonalList(
+      RemovePersonalList event, Emitter<PersonalListState> emit) async {
+    try {
+      emit(const PersonalListLoading());
+
+      await personalListRepository.removePersonalList(event.id);
+
+      emit(const PersonalListSuccess());
+    } catch (e) {
+      emit(PersonalListFailed(error: e.toString()));
+    }
   }
 }

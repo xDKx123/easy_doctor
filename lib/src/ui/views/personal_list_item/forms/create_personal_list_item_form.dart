@@ -19,11 +19,13 @@ class CreatePersonalListItemForm extends StatefulWidget {
 class _CreatePersonalListItemFormState
     extends State<CreatePersonalListItemForm> {
   late CreatePersonalListItemData _createPersonalListItemData;
+  late TextEditingController _deadlineTextController;
 
   @override
   void initState() {
     _createPersonalListItemData =
         CreatePersonalListItemData(listID: widget.listID);
+    _deadlineTextController = TextEditingController(text: '');
     super.initState();
   }
 
@@ -43,30 +45,33 @@ class _CreatePersonalListItemFormState
       );
     }
 
-    Widget _showCupertinoModalPopup() {
+    Widget _showDatePicker() {
       return Padding(
         padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
         child: TextFormField(
-          decoration: InputDecoration(
-            border: const OutlineInputBorder(),
+          controller: _deadlineTextController,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
             hintText: 'Deadline',
           ),
-          //onChanged: onChanged,
-          onTap: () {
-            showCupertinoModalPopup(
-              context: context,
-              builder: (BuildContext context) {
-                return CupertinoDatePicker(
-                  onDateTimeChanged: (DateTime value) {
-                    _createPersonalListItemData.deadline = value;
-                  },
-                );
-              },
-            );
+          showCursor: true,
+          readOnly: true,
+          onTap: () async {
+            final DateTime? deadline = await showDatePicker(
+                context: context,
+                initialDate:
+                    _createPersonalListItemData.deadline ?? DateTime.now(),
+                firstDate: DateTime(2015),
+                lastDate: DateTime(2101));
+
+            setState(() {
+              _createPersonalListItemData.deadline = deadline;
+              _deadlineTextController.text = deadline?.toString() ?? '';
+              //_deadlineTextController.clear();
+            });
           },
         ),
       );
-      //return showCupertinoModalPopup(context: context, builder: builder)
     }
 
     Widget buildMainContext() {
@@ -83,13 +88,14 @@ class _CreatePersonalListItemFormState
             onChanged: (String value) =>
                 _createPersonalListItemData.description = value,
           ),
-          _showCupertinoModalPopup(),
+          _showDatePicker(),
         ]),
       );
     }
 
     List<Widget>? actions() {
-      if (_createPersonalListItemData.name.isNotEmpty) {
+      if (_createPersonalListItemData.name.isNotEmpty &&
+          _createPersonalListItemData.deadline != null) {
         return <Widget>[
           IconButton(
             onPressed: () async {
@@ -98,7 +104,7 @@ class _CreatePersonalListItemFormState
                     name: _createPersonalListItemData.name,
                     description: _createPersonalListItemData.description,
                     listID: _createPersonalListItemData.listID,
-                    deadline: _createPersonalListItemData.deadline),
+                    deadline: _createPersonalListItemData.deadline!),
               );
             },
             icon: const Icon(Icons.done),
@@ -107,26 +113,51 @@ class _CreatePersonalListItemFormState
       }
     }
 
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            pinned: true,
-            flexibleSpace: const FlexibleSpaceBar(
-              title: Text('Create list'),
-            ),
-            actions: actions(),
+    return BlocConsumer<PersonalListItemsBloc, PersonalListItemsState>(
+      listener: (BuildContext context, PersonalListItemsState state) {
+        if (state is PersonalListItemsFailed) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(SnackBar(
+              content: Text(state.error),
+              backgroundColor: Colors.red,
+            ));
+        } else if (state is PersonalListItemsSuccess) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(const SnackBar(
+              content: Text('Success'),
+              backgroundColor: Colors.green,
+            ));
+          Navigator.pop(context);
+        }
+      },
+      builder: (BuildContext context, PersonalListItemsState state) {
+        return Scaffold(
+          body: CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                pinned: true,
+                flexibleSpace: const FlexibleSpaceBar(
+                  title: Text('Create list item'),
+                ),
+                actions: actions(),
+              ),
+              buildMainContext(),
+            ],
           ),
-          buildMainContext(),
-        ],
-      ),
+        );
+      },
     );
   }
 }
 
 class CreatePersonalListItemData {
   CreatePersonalListItemData(
-      {this.name = '', this.description = '', required this.listID});
+      {this.name = '',
+      this.description = '',
+      this.deadline,
+      required this.listID});
   String name;
   String description;
   DateTime? deadline;

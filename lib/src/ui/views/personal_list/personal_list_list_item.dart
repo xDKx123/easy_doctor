@@ -43,7 +43,7 @@ class _PersonalListListItemState extends State<PersonalListListItem> {
           },
           child: ListTile(
             title: Text(widget.listItem.description),
-            trailing: widget.listItem.items.isEmpty
+            trailing: widget.listItem.items.isNotEmpty
                 ? const Icon(Icons.arrow_forward_ios_outlined)
                 : null,
             subtitle: Text(widget.listItem.description),

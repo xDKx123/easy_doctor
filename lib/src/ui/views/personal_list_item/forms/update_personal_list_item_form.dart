@@ -24,10 +24,12 @@ class _UpdatePersonalListItemFormState
   void initState() {
     super.initState();
     _updatePersonalListItemData = UpdatePersonalListItemData(
-        id: widget.model.id!,
-        name: widget.model.name,
-        deadline: widget.model.deadline,
-        description: widget.model.description);
+      id: widget.model.id!,
+      name: widget.model.name,
+      deadline: widget.model.deadline,
+      description: widget.model.description,
+      completed: widget.model.completed,
+    );
     _deadlineTextController =
         TextEditingController(text: widget.model.deadline.toString());
   }
@@ -57,7 +59,7 @@ class _UpdatePersonalListItemFormState
       );
     }
 
-    Widget _showCupertinoModalPopup() {
+    Widget _showDatePicker() {
       return Padding(
         padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
         child: TextFormField(
@@ -102,7 +104,7 @@ class _UpdatePersonalListItemFormState
             onChanged: (String value) =>
                 _updatePersonalListItemData.description = value,
           ),
-          _showCupertinoModalPopup(),
+          _showDatePicker(),
         ]),
       );
     }
@@ -110,7 +112,8 @@ class _UpdatePersonalListItemFormState
     List<Widget>? _actions() {
       if (_updatePersonalListItemData.name != widget.model.name ||
           _updatePersonalListItemData.description != widget.model.description ||
-          _updatePersonalListItemData.deadline != widget.model.deadline) {
+          _updatePersonalListItemData.deadline != widget.model.deadline &&
+              _updatePersonalListItemData.deadline != null) {
         return <Widget>[
           IconButton(
             onPressed: () async {
@@ -119,7 +122,8 @@ class _UpdatePersonalListItemFormState
                   name: _updatePersonalListItemData.name,
                   description: _updatePersonalListItemData.description,
                   id: _updatePersonalListItemData.id,
-                  deadline: _updatePersonalListItemData.deadline,
+                  deadline: _updatePersonalListItemData.deadline!,
+                  completed: _updatePersonalListItemData.completed,
                 ),
               );
             },
@@ -140,33 +144,58 @@ class _UpdatePersonalListItemFormState
       );
     }
 
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            pinned: true,
-            flexibleSpace: const FlexibleSpaceBar(
-              title: Text('Update list'),
-            ),
-            actions: _actions(),
+    return BlocConsumer<PersonalListItemsBloc, PersonalListItemsState>(
+      listener: (BuildContext context, PersonalListItemsState state) {
+        if (state is PersonalListItemsFailed) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(SnackBar(
+              content: Text(state.error),
+              backgroundColor: Colors.red,
+            ));
+        } else if (state is PersonalListItemsSuccess) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(const SnackBar(
+              content: Text('Success'),
+              backgroundColor: Colors.green,
+            ));
+          Navigator.pop(context);
+        }
+      },
+      builder: (BuildContext context, PersonalListItemsState state) {
+        return Scaffold(
+          body: CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                pinned: true,
+                flexibleSpace: const FlexibleSpaceBar(
+                  title: Text('Update list'),
+                ),
+                actions: _actions(),
+              ),
+              _buildMainContext(),
+            ],
           ),
-          _buildMainContext(),
-        ],
-      ),
-      floatingActionButton: _floatingActionButton(),
+          floatingActionButton: _floatingActionButton(),
+        );
+      },
     );
   }
 }
 
 class UpdatePersonalListItemData {
-  UpdatePersonalListItemData(
-      {required this.id,
-      required this.name,
-      required this.description,
-      required this.deadline});
+  UpdatePersonalListItemData({
+    required this.id,
+    required this.name,
+    required this.description,
+    this.deadline,
+    required this.completed,
+  });
 
   late PersonalListItemID id;
   late String name;
   late String description;
   late DateTime? deadline;
+  late bool completed;
 }

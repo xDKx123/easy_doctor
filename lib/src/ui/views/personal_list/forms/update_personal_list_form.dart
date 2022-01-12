@@ -101,20 +101,36 @@ class _UpdatePersonalListFormState extends State<UpdatePersonalListForm> {
       }
     }
 
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            pinned: true,
-            flexibleSpace: const FlexibleSpaceBar(
-              title: Text('Update list'),
-            ),
-            actions: _actions(),
+    return BlocConsumer<PersonalListBloc, PersonalListState>(
+      listener: (BuildContext context, PersonalListState state) {
+        if (state is PersonalListFailed) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(SnackBar(content: Text(state.error), backgroundColor: Colors.red,));
+        } else if (state is PersonalListSuccess) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(const SnackBar(content: Text('Success'), backgroundColor: Colors.green,));
+          Navigator.pop(context);
+        }
+      },
+      builder: (BuildContext context, PersonalListState state) {
+        return Scaffold(
+          body: CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                pinned: true,
+                flexibleSpace: const FlexibleSpaceBar(
+                  title: Text('Update list'),
+                ),
+                actions: _actions(),
+              ),
+              _buildMainContext(),
+            ],
           ),
-          _buildMainContext(),
-        ],
-      ),
-      floatingActionButton: _floatingActionButton(),
+          floatingActionButton: _floatingActionButton(),
+        );
+      },
     );
   }
 }
