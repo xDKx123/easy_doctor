@@ -28,7 +28,7 @@ ThemeData darkTheme = ThemeData(
   accentColorBrightness: Brightness.light,
   accentColor: const Color(0xff59CBCB),
   scaffoldBackgroundColor: const Color(0xff222430),
-  cardColor: const Color(0xff272A3B),
+  cardColor: const Color(0xff272a3b),
   dividerColor: const Color(0xFF8D9496),
   canvasColor: const Color(0xff434656),
   colorScheme: const ColorScheme(
