@@ -24,28 +24,31 @@ class PersonalListItemRepository {
     }
   }
 
-  Future<void> updatePersonalListItem(PersonalListItemModel model) async {
+  Future<PersonalListItemModel> updatePersonalListItem(PersonalListItemModel model) async {
     try {
-      await RestRequest.postRequest(
+      final Map<String, dynamic> response = await RestRequest.postRequest(
           request: updatePersonalListItemRequest,
           body: PersonalListItemAdapter.toMap(model));
+
+      return PersonalListItemAdapter.fromMap(response['tasks']);
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<void> createPersonalListItem(
+  Future<PersonalListItemModel> createPersonalListItem(
       PersonalListItemModel model, PersonalListID listID) async {
     try {
       final Map<String, dynamic> map = PersonalListItemAdapter.toMap(model);
       map.addAll(<String, String>{'task_list_fk': listID.toString()});
 
-      Map<String, dynamic> response = await RestRequest.postRequest(
+      final Map<String, dynamic> response = await RestRequest.postRequest(
         request: createPersonalListItemRequest,
         body: map,
       );
 
-      //return PersonalListItemAdapter.fromMap(response);
+      return PersonalListItemAdapter.fromMap(response['tasks']);
+
     } catch (e) {
       rethrow;
     }

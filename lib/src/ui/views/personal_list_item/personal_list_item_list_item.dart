@@ -32,7 +32,7 @@ class _PersonalListItemListItemState extends State<PersonalListItemListItem> {
             );
           },
           child: ListTile(
-            title: Text(widget.listItem.description),
+            title: Text(widget.listItem.name),
             subtitle: Text(widget.listItem.description),
             trailing: Checkbox(
               value: widget.listItem.completed,

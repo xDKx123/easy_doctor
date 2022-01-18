@@ -1,6 +1,7 @@
 import 'package:easy_doctor/src/adapters/personal_list_adapter.dart';
 import 'package:easy_doctor/src/graphQl/graphql.dart';
 import 'package:easy_doctor/src/graphQl/request_routes/personal_list_requests.dart';
+import 'package:easy_doctor/src/models/personal_list_item_model.dart';
 import 'package:easy_doctor/src/models/personal_list_model.dart';
 
 class PersonalListRepository {
@@ -19,23 +20,27 @@ class PersonalListRepository {
     }
   }
 
-  Future<void> createPersonalList(PersonalListModel model) async {
+  Future<PersonalListModel> createPersonalList(PersonalListModel model) async {
     try {
-      RestRequest.postRequest(
+      final Map<String, dynamic> response = await RestRequest.postRequest(
         request: createPersonalListRequest,
         body: PersonalListAdapter.toMap(model),
       );
+
+      return PersonalListAdapter.fromMap(response['tasks']);
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<void> updatePersonalList(PersonalListModel model) async {
+  Future<PersonalListModel> updatePersonalList(PersonalListModel model) async {
     try {
-      RestRequest.postRequest(
+      final Map<String, dynamic> response = await RestRequest.postRequest(
         request: updatePersonalListRequest,
         body: PersonalListAdapter.toMap(model),
       );
+
+      return PersonalListAdapter.fromMap(response['tasks']);
     } catch (e) {
       rethrow;
     }
@@ -43,7 +48,7 @@ class PersonalListRepository {
 
   Future<void> removePersonalList(PersonalListID id) async {
     try {
-      RestRequest.postRequest(
+      Map<String, dynamic> response = await RestRequest.postRequest(
         request: deletePersonalListRequest,
         body: <String, String>{
           'id': id.toString(),
