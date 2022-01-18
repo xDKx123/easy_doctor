@@ -42,7 +42,7 @@ class _PersonalListListItemState extends State<PersonalListListItem> {
             );
           },
           child: ListTile(
-            title: Text(widget.listItem.description),
+            title: Text(widget.listItem.name),
             trailing: widget.listItem.items.isNotEmpty
                 ? const Icon(Icons.arrow_forward_ios_outlined)
                 : null,

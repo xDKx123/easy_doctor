@@ -6,11 +6,11 @@ class PersonalListItemAdapter {
   static PersonalListItemModel fromMap(Map<String, dynamic> map) {
     return PersonalListItemModel(
       id: map['id'] != null ? PersonalListItemID(map['id'].toString()) : null,
-      name: map['name'],
+      name: map['name'] ?? '',
       //deadline: map['deadline'],
       deadline: DateTime.parse(map['deadline']),
       completed: map['completed'],
-      description: map['description'],
+      description: map['description'] ?? '',
     );
   }
 
